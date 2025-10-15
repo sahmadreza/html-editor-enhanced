@@ -254,11 +254,15 @@ class _DropdownMenuItemButtonState<T>
         widget.constraints.maxHeight,
         widget.itemIndex,
       );
-      widget.route.scrollController!.animateTo(
-        menuLimits.scrollOffset,
-        curve: Curves.easeInOut,
-        duration: const Duration(milliseconds: 100),
-      );
+      if (widget.route.scrollController?.hasClients == true) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          widget.route.scrollController?.animateTo(
+            menuLimits.scrollOffset,
+            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 100),
+          );
+        });
+      }
     }
   }
 
@@ -602,6 +606,15 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
         : (buttonTop - selectedItemOffset) -
             (itemHeights[selectedIndex] - buttonRect.height) / 2.0;
     var menuBottom = menuTop + min((menuMaxHeight ?? menuHeight), menuHeight);
+
+    // Ensure menu stays within the viewport
+    if (menuTop < 0.0) {
+      menuTop = 0.0;
+      menuBottom = menuTop + menuHeight;
+    } else if (menuBottom > availableHeight) {
+      menuBottom = availableHeight;
+      menuTop = menuBottom - menuHeight;
+    }
 
     if (menuTop < topLimit) {
       menuTop = min(buttonTop, topLimit);
