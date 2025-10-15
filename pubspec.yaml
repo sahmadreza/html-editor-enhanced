@@ -50,6 +50,9 @@ flutter:
     - packages/html_editor_enhanced/assets/summernote-lite-dark.css
     - packages/html_editor_enhanced/assets/summernote-lite.min.js
     - packages/html_editor_enhanced/assets/jquery.min.js
+    - packages/html_editor_enhanced/assets/font/rokh/RokhFaNum-Normal.ttf
+    - packages/html_editor_enhanced/assets/font/yekan/IRANYekanMobileRegular.ttf
+    - packages/html_editor_enhanced/assets/font/yekan/IRANYekanMobileBold.ttf
     - packages/html_editor_enhanced/assets/font/summernote.eot
     - packages/html_editor_enhanced/assets/font/summernote.ttf
     - packages/html_editor_enhanced/assets/plugins/summernote-at-mention/summernote-at-mention.js

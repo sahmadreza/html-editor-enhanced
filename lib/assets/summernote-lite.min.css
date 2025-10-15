@@ -3,6 +3,28 @@
 }
 
 @font-face {
+  font-family: RokhFaNum;
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;   
+  src: url('font/rokh/RokhFaNum-Normal.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: IRANYekanFN;
+  font-style: normal;
+  font-weight: 400;
+  src: url('font/yekan/IRANYekanMobileRegular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: IRANYekanFN;
+  font-style: normal;
+  font-weight: 700;
+  src: url('font/yekan/IRANYekanMobileBold.ttf') format('truetype');
+}
+
+@font-face {
   font-family: summernote;
   font-style: normal;
   font-weight: 400;
@@ -280,7 +302,7 @@
   -ms-box-sizing: border-box;
   box-sizing: border-box;
   color: #000;
-  font-family: sans-serif;
+  font-family: "IRANYekanFN";
   border-radius: 4px;
 }
 
@@ -729,7 +751,7 @@ a.note-dropdown-item,a.note-dropdown-item:hover {
 
 .note-tooltip-content {
   max-width: 200px;
-  font-family: sans-serif;
+  font-family: "IRANYekanFN";
   padding: 3px 8px;
   color: #fff;
   text-align: center;
@@ -741,7 +763,7 @@ a.note-dropdown-item,a.note-dropdown-item:hover {
   z-index: 1060;
   display: block;
   font-size: 13px;
-  font-family: sans-serif;
+  font-family: "IRANYekanFN";
   display: none;
   background: #fff;
   border: 1px solid #ccc;

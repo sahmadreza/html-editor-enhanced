@@ -154,6 +154,7 @@ class HtmlToolbarOptions {
     this.mediaLinkInsertInterceptor,
     this.mediaUploadInterceptor,
     this.onButtonPressed,
+    this.onCustomButtonPressed,
     this.onDropdownChanged,
     this.onOtherFileLinkInsert,
     this.onOtherFileUpload,
@@ -279,6 +280,9 @@ class HtmlToolbarOptions {
   ///
   /// If no interceptor is set, the plugin uses the internal handler.
   final FutureOr<bool> Function(ButtonType, bool?, Function?)? onButtonPressed;
+
+  final Future<void> Function(ButtonType, bool?, Function?)?
+      onCustomButtonPressed;
 
   /// Allows you to intercept any dropdown changes. The function passes the
   /// DropdownType enum, which tells you which dropdown was changed,
@@ -419,6 +423,7 @@ class OtherOptions {
           Border.fromBorderSide(BorderSide(color: Color(0xffececec), width: 1)),
     ),
     this.height = 400,
+    this.direction = 'ltr',
   });
 
   /// The BoxDecoration to use around the Html editor. By default, the widget
@@ -431,4 +436,6 @@ class OtherOptions {
   ///
   /// The default value is 400.
   final double height;
+
+  final String direction;
 }

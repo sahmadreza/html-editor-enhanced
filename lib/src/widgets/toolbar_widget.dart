@@ -68,10 +68,10 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
   double _fontSizeSelectedItem = 3;
 
   /// Keeps track of the current font size in px
-  double _actualFontSizeSelectedItem = 16;
+  double _actualFontSizeSelectedItem = 14;
 
   /// Sets the selected item for the font units dropdown
-  String _fontSizeUnitSelectedItem = 'pt';
+  String _fontSizeUnitSelectedItem = 'px';
 
   /// Sets the selected item for the foreground color dialog
   Color _foreColorSelected = Colors.black;
@@ -507,76 +507,36 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
               items: [
                 CustomDropdownMenuItem(
                     value: 'p',
-                    child: PointerInterceptor(child: Text('Normal'))),
-                CustomDropdownMenuItem(
-                    value: 'blockquote',
                     child: PointerInterceptor(
-                      child: Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  left: BorderSide(
-                                      color: Colors.grey, width: 3.0))),
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text('Quote',
-                              style: TextStyle(
-                                  fontFamily: 'times', color: Colors.grey))),
-                    )),
-                CustomDropdownMenuItem(
-                    value: 'pre',
-                    child: PointerInterceptor(
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.grey),
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text('Code',
-                              style: TextStyle(
-                                  fontFamily: 'courier', color: Colors.white))),
-                    )),
+                        child: Text(
+                      'متن معمولی',
+                      style: TextStyle(fontSize: 14),
+                    ))),
                 CustomDropdownMenuItem(
                   value: 'h1',
                   child: PointerInterceptor(
-                      child: Text('Header 1',
+                      child: Text('عنوان یک',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 32))),
+                              fontWeight: FontWeight.bold, fontSize: 17))),
                 ),
                 CustomDropdownMenuItem(
                   value: 'h2',
                   child: PointerInterceptor(
-                      child: Text('Header 2',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24))),
-                ),
-                CustomDropdownMenuItem(
-                  value: 'h3',
-                  child: PointerInterceptor(
-                      child: Text('Header 3',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18))),
-                ),
-                CustomDropdownMenuItem(
-                  value: 'h4',
-                  child: PointerInterceptor(
-                      child: Text('Header 4',
+                      child: Text('عنوان دو',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16))),
                 ),
                 CustomDropdownMenuItem(
-                  value: 'h5',
+                  value: 'h3',
                   child: PointerInterceptor(
-                      child: Text('Header 5',
+                      child: Text('عنوان سه',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 13))),
-                ),
-                CustomDropdownMenuItem(
-                  value: 'h6',
-                  child: PointerInterceptor(
-                      child: Text('Header 6',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 11))),
+                              fontWeight: FontWeight.bold, fontSize: 15))),
                 ),
               ],
-              value: _fontSelectedItem,
+              value: ['p', 'h1', 'h2', 'h3'].contains(_fontSelectedItem)
+                  ? _fontSelectedItem
+                  : 'p',
               onChanged: (String? changed) async {
                 void updateSelectedItem(dynamic changed) {
                   if (changed is String) {
@@ -657,6 +617,18 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     child: PointerInterceptor(
                         child: Text('Times New Roman',
                             style: TextStyle(fontFamily: 'Times'))),
+                  ),
+                  CustomDropdownMenuItem(
+                    value: 'RokhFaNum',
+                    child: PointerInterceptor(
+                        child: Text('RokhFaNum',
+                            style: TextStyle(fontFamily: 'RokhFaNum'))),
+                  ),
+                  CustomDropdownMenuItem(
+                    value: 'IRANYekanFN',
+                    child: PointerInterceptor(
+                        child: Text('IRANYekanFN',
+                            style: TextStyle(fontFamily: 'IRANYekanFN'))),
                   ),
                 ],
                 value: _fontNameSelectedItem,
@@ -1798,7 +1770,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                         child: StatefulBuilder(builder:
                             (BuildContext context, StateSetter setState) {
                           return AlertDialog(
-                            title: Text('Insert Link'),
+                            title: Text('ایجاد لینک'),
                             scrollable: true,
                             content: Form(
                               key: formKey,
@@ -1806,7 +1778,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Text to display',
+                                    Text('متن نمایشی',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     SizedBox(height: 10),
@@ -1816,14 +1788,14 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                       textInputAction: TextInputAction.next,
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(),
-                                        hintText: 'Text',
+                                        hintText: 'متن',
                                       ),
                                       onSubmitted: (_) {
                                         urlFocus.requestFocus();
                                       },
                                     ),
                                     SizedBox(height: 20),
-                                    Text('URL',
+                                    Text('آدرس لینک',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     SizedBox(height: 10),
@@ -1837,7 +1809,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                       ),
                                       validator: (String? value) {
                                         if (value == null || value.isEmpty) {
-                                          return 'Please enter a URL!';
+                                          return 'لطفا یک آدرس وارد نمایید!';
                                         }
                                         return null;
                                       },
@@ -1857,26 +1829,6 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                             },
                                           ),
                                         ),
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor: Theme.of(context)
-                                                  .dialogTheme
-                                                  .backgroundColor,
-                                              padding: EdgeInsets.only(
-                                                  left: 5, right: 5),
-                                              elevation: 0.0),
-                                          onPressed: () {
-                                            setState(() {
-                                              openNewTab = !openNewTab;
-                                            });
-                                          },
-                                          child: Text('Open in new window',
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall
-                                                      ?.color)),
-                                        ),
                                       ],
                                     ),
                                   ]),
@@ -1886,7 +1838,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Text('Cancel'),
+                                child: Text('لغو'),
                               ),
                               TextButton(
                                 onPressed: () async {
@@ -1913,7 +1865,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                     Navigator.of(context).pop();
                                   }
                                 },
-                                child: Text('OK'),
+                                child: Text('ایجاد'),
                               )
                             ],
                           );
@@ -1923,172 +1875,180 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
               }
             }
             if (t.getIcons()[index].icon == Icons.image_outlined) {
-              var proceed = await widget.htmlToolbarOptions.onButtonPressed
-                      ?.call(ButtonType.picture, null, null) ??
-                  true;
-              if (proceed) {
-                final filename = TextEditingController();
-                final url = TextEditingController();
-                final urlFocus = FocusNode();
-                FilePickerResult? result;
-                String? validateFailed;
-                await showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return PointerInterceptor(
-                        child: StatefulBuilder(builder:
-                            (BuildContext context, StateSetter setState) {
-                          return AlertDialog(
-                            title: Text('Insert Image'),
-                            scrollable: true,
-                            content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    Text('Select from files',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    SizedBox(height: 10),
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    TextFormField(
-                                        controller: filename,
-                                        readOnly: true,
-                                        decoration: InputDecoration(
-                                          prefixIcon: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    Theme.of(context)
-                                                        .dialogTheme
-                                                        .backgroundColor,
-                                                padding: EdgeInsets.only(
-                                                    left: 5, right: 5),
-                                                elevation: 0.0),
-                                            onPressed: () async {
-                                              result = await FilePicker.platform
-                                                  .pickFiles(
-                                                type: FileType.image,
-                                                withData: true,
-                                                allowedExtensions: widget
-                                                    .htmlToolbarOptions
-                                                    .imageExtensions,
-                                              );
-                                              if (result?.files.single.name !=
-                                                  null) {
-                                                setState(() {
-                                                  filename.text =
-                                                      result!.files.single.name;
-                                                });
-                                              }
-                                            },
-                                            child: Text('Choose image',
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall
-                                                        ?.color)),
-                                          ),
-                                          suffixIcon: result != null
-                                              ? IconButton(
-                                                  icon: Icon(Icons.close),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      result = null;
-                                                      filename.text = '';
-                                                    });
-                                                  })
-                                              : Container(height: 0, width: 0),
-                                          errorText: validateFailed,
-                                          errorMaxLines: 2,
-                                          border: InputBorder.none,
-                                        )),
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    SizedBox(height: 20),
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    Text('URL',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                  if (widget
-                                      .htmlToolbarOptions.allowImagePicking)
-                                    SizedBox(height: 10),
-                                  TextField(
-                                    controller: url,
-                                    focusNode: urlFocus,
-                                    textInputAction: TextInputAction.done,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: 'URL',
-                                      errorText: validateFailed,
-                                      errorMaxLines: 2,
+              if (widget.htmlToolbarOptions.onCustomButtonPressed != null) {
+                await widget.htmlToolbarOptions.onCustomButtonPressed
+                    ?.call(ButtonType.picture, null, null);
+              } else {
+                var proceed = await widget.htmlToolbarOptions.onButtonPressed
+                        ?.call(ButtonType.picture, null, null) ??
+                    true;
+                if (proceed) {
+                  final filename = TextEditingController();
+                  final url = TextEditingController();
+                  final urlFocus = FocusNode();
+                  FilePickerResult? result;
+                  String? validateFailed;
+                  await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return PointerInterceptor(
+                          child: StatefulBuilder(builder:
+                              (BuildContext context, StateSetter setState) {
+                            return AlertDialog(
+                              title: Text('ایجاد تصویر'),
+                              scrollable: true,
+                              content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (widget
+                                        .htmlToolbarOptions.allowImagePicking)
+                                      Text('انتخاب از فایل‌ها',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                    if (widget
+                                        .htmlToolbarOptions.allowImagePicking)
+                                      SizedBox(height: 10),
+                                    if (widget
+                                        .htmlToolbarOptions.allowImagePicking)
+                                      TextFormField(
+                                          controller: filename,
+                                          readOnly: true,
+                                          decoration: InputDecoration(
+                                            prefixIcon: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      Theme.of(context)
+                                                          .dialogTheme
+                                                          .backgroundColor,
+                                                  padding: EdgeInsets.only(
+                                                      left: 5, right: 5),
+                                                  elevation: 0.0),
+                                              onPressed: () async {
+                                                result = await FilePicker
+                                                    .platform
+                                                    .pickFiles(
+                                                  type: FileType.image,
+                                                  withData: true,
+                                                  allowedExtensions: widget
+                                                      .htmlToolbarOptions
+                                                      .imageExtensions,
+                                                );
+                                                if (result?.files.single.name !=
+                                                    null) {
+                                                  setState(() {
+                                                    filename.text = result!
+                                                        .files.single.name;
+                                                  });
+                                                }
+                                              },
+                                              child: Text('انتخاب فایل',
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall
+                                                          ?.color)),
+                                            ),
+                                            suffixIcon: result != null
+                                                ? IconButton(
+                                                    icon: Icon(Icons.close),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        result = null;
+                                                        filename.text = '';
+                                                      });
+                                                    })
+                                                : Container(
+                                                    height: 0, width: 0),
+                                            errorText: validateFailed,
+                                            errorMaxLines: 2,
+                                            border: InputBorder.none,
+                                          )),
+                                    if (widget
+                                        .htmlToolbarOptions.allowImagePicking)
+                                      SizedBox(height: 20),
+                                    if (widget
+                                        .htmlToolbarOptions.allowImagePicking)
+                                      Text('آدرس فایل',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                    if (widget
+                                        .htmlToolbarOptions.allowImagePicking)
+                                      SizedBox(height: 10),
+                                    TextField(
+                                      controller: url,
+                                      focusNode: urlFocus,
+                                      textInputAction: TextInputAction.done,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        hintText: 'URL',
+                                        errorText: validateFailed,
+                                        errorMaxLines: 2,
+                                      ),
                                     ),
-                                  ),
-                                ]),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  if (filename.text.isEmpty &&
-                                      url.text.isEmpty) {
-                                    setState(() {
-                                      validateFailed = widget.htmlToolbarOptions
-                                              .allowImagePicking
-                                          ? 'Please either choose an image or enter an image URL!'
-                                          : 'Please enter an image URL!';
-                                    });
-                                  } else if (filename.text.isNotEmpty &&
-                                      url.text.isNotEmpty) {
-                                    setState(() {
-                                      validateFailed =
-                                          'Please input either an image or an image URL, not both!';
-                                    });
-                                  } else if (filename.text.isNotEmpty &&
-                                      result?.files.single.bytes != null) {
-                                    var base64Data = base64
-                                        .encode(result!.files.single.bytes!);
-                                    var proceed = await widget
-                                            .htmlToolbarOptions
-                                            .mediaUploadInterceptor
-                                            ?.call(result!.files.single,
-                                                InsertFileType.image) ??
-                                        true;
-                                    if (proceed) {
-                                      widget.controller.insertHtml(
-                                          "<img src='data:image/${result!.files.single.extension};base64,$base64Data' data-filename='${result!.files.single.name}' alt="
-                                          "/>");
-                                    }
+                                  ]),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
                                     Navigator.of(context).pop();
-                                  } else {
-                                    var proceed = await widget
-                                            .htmlToolbarOptions
-                                            .mediaLinkInsertInterceptor
-                                            ?.call(url.text,
-                                                InsertFileType.image) ??
-                                        true;
-                                    if (proceed) {
-                                      widget.controller
-                                          .insertNetworkImage(url.text);
+                                  },
+                                  child: Text('لغو'),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    if (filename.text.isEmpty &&
+                                        url.text.isEmpty) {
+                                      setState(() {
+                                        validateFailed = widget
+                                                .htmlToolbarOptions
+                                                .allowImagePicking
+                                            ? 'لطفاً یا یک تصویر را انتخاب کنید یا یک URL تصویر را وارد کنید!'
+                                            : 'لطفا آدرس تصویر را وارد کنید!';
+                                      });
+                                    } else if (filename.text.isNotEmpty &&
+                                        url.text.isNotEmpty) {
+                                      setState(() {
+                                        validateFailed =
+                                            'لطفاً یک تصویر یا یک نشانی اینترنتی تصویر را وارد کنید، نه هر دو را!';
+                                      });
+                                    } else if (filename.text.isNotEmpty &&
+                                        result?.files.single.bytes != null) {
+                                      var base64Data = base64
+                                          .encode(result!.files.single.bytes!);
+                                      var proceed = await widget
+                                              .htmlToolbarOptions
+                                              .mediaUploadInterceptor
+                                              ?.call(result!.files.single,
+                                                  InsertFileType.image) ??
+                                          true;
+                                      if (proceed) {
+                                        widget.controller.insertHtml(
+                                            "<img src='data:image/${result!.files.single.extension};base64,$base64Data' data-filename='${result!.files.single.name}' alt="
+                                            "/>");
+                                      }
+                                      Navigator.of(context).pop();
+                                    } else {
+                                      var proceed = await widget
+                                              .htmlToolbarOptions
+                                              .mediaLinkInsertInterceptor
+                                              ?.call(url.text,
+                                                  InsertFileType.image) ??
+                                          true;
+                                      if (proceed) {
+                                        widget.controller
+                                            .insertNetworkImage(url.text);
+                                      }
+                                      Navigator.of(context).pop();
                                     }
-                                    Navigator.of(context).pop();
-                                  }
-                                },
-                                child: Text('OK'),
-                              )
-                            ],
-                          );
-                        }),
-                      );
-                    });
+                                  },
+                                  child: Text('ایجاد'),
+                                )
+                              ],
+                            );
+                          }),
+                        );
+                      });
+                }
               }
             }
             if (t.getIcons()[index].icon == Icons.audiotrack_outlined) {
