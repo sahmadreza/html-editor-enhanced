@@ -83,7 +83,15 @@ class HtmlEditorController extends unsupported.HtmlEditorController {
   void setText(String text) {
     text = _processHtml(html: text);
     _evaluateJavascript(
-        source: "\$('#summernote-2').summernote('code', '$text');");
+        source:
+            "\$('#summernote-2').summernote('code', '${_escapeForJs(text)}');");
+  }
+
+  String _escapeForJs(String html) {
+    return html
+        .replaceAll(r'\', r'\\') // escape backslash
+        .replaceAll("'", r"\'") // escape single quotes
+        .replaceAll("\n", r'\n'); // escape newlines
   }
 
   /// Sets the editor to full-screen mode.
@@ -175,7 +183,7 @@ class HtmlEditorController extends unsupported.HtmlEditorController {
   /// Note: This method should not be used for plaintext strings
   @override
   void insertMath(String text) {
-    _evaluateJavascript(source: "insertMath('$text');");
+    _evaluateJavascript(source: "insertMath('${_escapeForJs(text)}');");
   }
 
   /// Insert a link at the position of the cursor in the editor
@@ -268,6 +276,7 @@ class HtmlEditorController extends unsupported.HtmlEditorController {
         throw Exception(
             'HTML editor is still loading, please wait before evaluating this JS: $source!');
       }
+      debugPrint("_____ _evaluateJavascript: $source");
       var result = await editorController!.evaluateJavascript(source: source);
       return result;
     } else {
