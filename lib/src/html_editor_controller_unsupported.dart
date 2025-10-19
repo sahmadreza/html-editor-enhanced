@@ -109,6 +109,9 @@ class HtmlEditorController {
   /// Insert a network image at the position of the cursor in the editor
   void insertNetworkImage(String url, {String filename = ''}) {}
 
+  /// Insert Math TeX string
+  void insertMath(String text) {}
+
   /// Insert text at the end of the current HTML content in the editor
   /// Note: This method should only be used for plaintext strings
   void insertText(String text) {}

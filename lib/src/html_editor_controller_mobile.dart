@@ -171,6 +171,13 @@ class HtmlEditorController extends unsupported.HtmlEditorController {
             "\$('#summernote-2').summernote('insertImage', '$url', '$filename');");
   }
 
+  /// Insert HTML at the position of the cursor in the editor
+  /// Note: This method should not be used for plaintext strings
+  @override
+  void insertMath(String text) {
+    _evaluateJavascript(source: "insertMath('$text');");
+  }
+
   /// Insert a link at the position of the cursor in the editor
   @override
   void insertLink(String text, String url, bool isNewWindow) {

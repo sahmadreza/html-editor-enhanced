@@ -279,6 +279,9 @@ class _HtmlEditorWidgetWebState extends State<HtmlEditorWidget> {
               if (data["type"].includes("insertHtml")) {
                 \$('#summernote-2').summernote('pasteHTML', data["html"]);
               }
+              if (data["type"].includes("insertMath")) {
+                insertMath(data["text"])
+              }
               if (data["type"].includes("insertNetworkImage")) {
                 \$('#summernote-2').summernote('insertImage', data["url"], data["filename"]);
               }

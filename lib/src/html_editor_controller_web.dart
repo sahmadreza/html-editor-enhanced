@@ -181,6 +181,15 @@ class HtmlEditorController extends unsupported.HtmlEditorController {
     });
   }
 
+  /// Insert a link at the position of the cursor in the editor
+  @override
+  void insertMath(String text) {
+    _evaluateJavascriptWeb(data: {
+      'type': 'toIframe: insertMath',
+      'text': text,
+    });
+  }
+
   /// Clears the focus from the webview by hiding the keyboard, calling the
   /// clearFocus method on the [InAppWebViewController], and resetting the height
   /// in case it was changed.
