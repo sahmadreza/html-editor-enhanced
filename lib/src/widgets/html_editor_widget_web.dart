@@ -219,7 +219,8 @@ class _HtmlEditorWidgetWebState extends State<HtmlEditorWidget> {
           });
           
           \$('#summernote-2').on('summernote.change', function(_, contents, \$editable) {
-            window.parent.postMessage(JSON.stringify({"view": "$createdViewId", "type": "toDart: onChangeContent", "contents": contents}), "*");
+            renderMathInElementLTR(document.body);
+            window.parent.postMessage(JSON.stringify({"view": "$createdViewId", "type": "toDart: onChangeContent", "contents": beforeOnChangeContent(contents)}), "*");
           });
         });
        
@@ -457,6 +458,16 @@ class _HtmlEditorWidgetWebState extends State<HtmlEditorWidget> {
         .replaceFirst('<!--summernoteScripts-->', summernoteScripts)
         .replaceFirst('"jquery.min.js"',
             '"assets/packages/html_editor_enhanced/assets/jquery.min.js"')
+        .replaceFirst('"katex/katex.min.css"',
+            '"assets/packages/html_editor_enhanced/assets/katex/katex.min.css"')
+        .replaceFirst('"katex/katex.min.js"',
+            '"assets/packages/html_editor_enhanced/assets/katex/katex.min.js"')
+        .replaceFirst('"katex/auto-render.min.js"',
+            '"assets/packages/html_editor_enhanced/assets/katex/auto-render.min.js"')
+        .replaceFirst('"katex/katex-config.min.js"',
+            '"assets/packages/html_editor_enhanced/assets/katex/katex-config.min.js"')
+        .replaceFirst('"mathjax/mathjax-config.js"',
+            '"assets/packages/html_editor_enhanced/assets/mathjax/mathjax-config.js"')
         .replaceFirst('"summernote-lite.min.css"',
             '"assets/packages/html_editor_enhanced/assets/summernote-lite.min.css"')
         .replaceFirst('"summernote-lite.min.js"',
@@ -598,6 +609,7 @@ class _HtmlEditorWidgetWebState extends State<HtmlEditorWidget> {
       callbacks = callbacks +
           """
           \$('#summernote-2').on('summernote.change.codeview', function(_, contents, \$editable) {
+            renderMathInElementLTR(document.body);
             window.parent.postMessage(JSON.stringify({"view": "$createdViewId", "type": "toDart: onChangeCodeview", "contents": contents}), "*");
           });\n
         """;

@@ -147,8 +147,8 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                     javaScriptEnabled: true,
                     transparentBackground: true,
                     useShouldOverrideUrlLoading: true,
-                    useHybridComposition: widget.htmlEditorOptions
-                        .androidUseHybridComposition,
+                    useHybridComposition:
+                        widget.htmlEditorOptions.androidUseHybridComposition,
                     loadWithOverviewMode: true,
                   ),
                   initialUserScripts:
@@ -213,7 +213,9 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                         });
                         await setHeightJS();
                       }
-                      var visibleDecimal = await visibleStream.stream.firstWhere((_) => !visibleStream.isClosed, orElse: () => 0);
+                      var visibleDecimal = await visibleStream.stream
+                          .firstWhere((_) => !visibleStream.isClosed,
+                              orElse: () => 0);
                       var newHeight = widget.otherOptions.height;
                       if (visibleDecimal > 0.1) {
                         this.setState(() {
@@ -378,7 +380,8 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                           });
                           
                           \$('#summernote-2').on('summernote.change', function(_, contents, \$editable) {
-                            window.flutter_inappwebview.callHandler('onChangeContent', contents);
+                            renderMathInElementLTR(document.body);
+                            window.flutter_inappwebview.callHandler('onChangeContent', beforeOnChangeContent(contents));
                           });
                       
                           function onSelectionChange() {
@@ -564,6 +567,7 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
     if (c.onChangeCodeview != null) {
       widget.controller.editorController!.evaluateJavascript(source: """
           \$('#summernote-2').on('summernote.change.codeview', function(_, contents, \$editable) {
+            renderMathInElementLTR(document.body);
             window.flutter_inappwebview.callHandler('onChangeCodeview', contents);
           });
         """);
