@@ -49,6 +49,8 @@ flutter:
     - packages/html_editor_enhanced/assets/katex/auto-render.min.js
     - packages/html_editor_enhanced/assets/mathjax/mathjax-config.js
     - packages/html_editor_enhanced/assets/katex/katex-config.min.js
+    - packages/html_editor_enhanced/assets/katex/fonts/KaTeX_Main-Regular.woff
+    - packages/html_editor_enhanced/assets/katex/fonts/KaTeX_Main-Regular.woff2
     - packages/html_editor_enhanced/assets/summernote.html
     - packages/html_editor_enhanced/assets/summernote-no-plugins.html
     - packages/html_editor_enhanced/assets/summernote-lite.min.css
